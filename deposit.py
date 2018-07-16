@@ -48,7 +48,7 @@ class deposit():
             sql = "UPDATE deposits SET txs=txs+1 WHERE username=%s AND coin=%s"
             self.cursor.execute(sql, (username,coin,))
 
-            if coin == "garlicoin":
+            if coin == "mambocoin":
                 sql = "UPDATE amounts SET amount=amount+%s WHERE username=%s"
                 self.cursor.execute(sql, (newtx,username,))
             elif coin == "dash":
