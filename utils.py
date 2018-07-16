@@ -37,4 +37,3 @@ class utils():
             return 0
         except:
             return 1
-
