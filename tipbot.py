@@ -33,7 +33,7 @@ class tipbot():
         self.help = """You can send the following commands to the bot by PM. Do not include the [ and ], these are only to make it easier to read for you.\n\n
 * signup - Will sign you up, each account can only run this once.\n
 * balance - Will give you your current tips balance.\n
-* deposit - Will reply with an address which you can deposit garlicoin into.\n
+* deposit - Will reply with an address which you can deposit mambocoin into.\n
 * withdraw [address] [amount] - Will withdraw the amount you request into the address you request.\n
 * tip [amount] [user] - Tips the user with the amount you request.\n\n
 
@@ -77,7 +77,7 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
             return 1
 
     def check_supported_coin(self,coin):
-        supported = ['garlicoin','dash']
+        supported = ['mambocoin','dash']
         if coin in supported:
             return True
         else:
@@ -90,13 +90,13 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
         else:
             return False
 
-    def modify_user_balance(self,pn,username,amt,coin='garlicoin'):
+    def modify_user_balance(self,pn,username,amt,coin='mambocoin'):
         coin = coin.lower() #Sometimes we're dealing with upper and lower case
         if amt < 0:
             self.logger.logline("%s tried to use a negative number!" % (username))
             raise Exception
 
-        if coin == "garlicoin":
+        if coin == "mambocoin":
             if pn == "+":
                 sql = "UPDATE amounts SET amount=amount+%s WHERE username=%s"
                 self.logger.logline("%s's balance has been credited by %s" % (username,amt))
@@ -160,7 +160,7 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
                 self.modify_user_balance("+",receiver,addamt)
                 mstr = str(receiver)+" "+str(addamt) #Probably no need for this, holdover from recode.
                 try:
-                    self.reddit.comment(id=mention.id).reply("Yay! You gave /u/%s garlicoin, hopefully they can now create some tasty garlic bread.\n***\n^^Wow ^^so ^^tasty ^^|| ^^I ^^now ^^support ^^exchange ^^from ^^and ^^to ^^other ^^cryptos [^^click ^^here](https://www.reddit.com/r/garlicoin/comments/7wehii/ugarlictipsbot_a_giveaway_important_news/) ^^|| [^^Need ^^help?](https://www.reddit.com/message/compose/?to=garlictipsbot&subject=help&message=help) ^^|| [^^Dogecoin ^^partnership ^^coming ^^soon](https://np.reddit.com/r/garlicoin/comments/7u0z1w/garlictipsbot_recodeopen_sourceimportant_news/)" % (mstr))
+                    self.reddit.comment(id=mention.id).reply("Yay! You gave /u/%s mambocoin, hopefully they can now create some tasty garlic bread.\n***\n^^Wow ^^so ^^tasty ^^|| ^^I ^^now ^^support ^^exchange ^^from ^^and ^^to ^^other ^^cryptos [^^click ^^here](https://www.reddit.com/r/mambocoin/comments/7wehii/ugarlictipsbot_a_giveaway_important_news/) ^^|| [^^Need ^^help?](https://www.reddit.com/message/compose/?to=garlictipsbot&subject=help&message=help) ^^|| [^^Dogecoin ^^partnership ^^coming ^^soon](https://np.reddit.com/r/mambocoin/comments/7u0z1w/garlictipsbot_recodeopen_sourceimportant_news/)" % (mstr))
                 except:
                     self.logger.logline("Reddit doesn't seem to be responding right now...died on comment for existing user.")
                     #traceback.print_exc()
@@ -168,8 +168,8 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
                 self.create_account(receiver)
                 self.modify_user_balance("+",receiver,addamt)
                 try:
-                    self.reddit.comment(id=mention.id).reply("Yay! You gave /u/%s %s garlicoin, hopefully they can now create some tasty garlic bread. If %s doesn't know what it is, they should read [this thread](https://np.reddit.com/r/garlicoin/comments/7smsu0/introducing_ugarlictipsbot/)\n***\n^^Wow ^^so ^^tasty ^^|| ^^I ^^now ^^support ^^exchange ^^from ^^and ^^to ^^other ^^cryptos [^^click ^^here](https://www.reddit.com/r/garlicoin/comments/7wehii/ugarlictipsbot_a_giveaway_important_news/) ^^|| [^^Need ^^help?](https://www.reddit.com/message/compose/?to=garlictipsbot&subject=help&message=help) ^^|| [^^Dogecoin ^^partnership ^^coming ^^soon](https://np.reddit.com/r/garlicoin/comments/7u0z1w/garlictipsbot_recodeopen_sourceimportant_news/)" % (receiver, addamt, receiver))
-                    self.utils.send_message(receiver,'Welcome to Garlicoin',"%s gave you some Garlicoin, we have added your new found riches to an account in your name on garlictipsbot. You can get the balance by messaging this bot with the word balance on it's own (in a new message, not as a reply to this one!) \n\nYou can also send tips to others or withdraw to your own garlicoin wallet. If there are any issues please PM /u/ktechmidas" % mention.author)
+                    self.reddit.comment(id=mention.id).reply("Yay! You gave /u/%s %s mambocoin, hopefully they can now create some tasty garlic bread. If %s doesn't know what it is, they should read [this thread](https://np.reddit.com/r/mambocoin/comments/7smsu0/introducing_ugarlictipsbot/)\n***\n^^Wow ^^so ^^tasty ^^|| ^^I ^^now ^^support ^^exchange ^^from ^^and ^^to ^^other ^^cryptos [^^click ^^here](https://www.reddit.com/r/mambocoin/comments/7wehii/ugarlictipsbot_a_giveaway_important_news/) ^^|| [^^Need ^^help?](https://www.reddit.com/message/compose/?to=garlictipsbot&subject=help&message=help) ^^|| [^^Dogecoin ^^partnership ^^coming ^^soon](https://np.reddit.com/r/mambocoin/comments/7u0z1w/garlictipsbot_recodeopen_sourceimportant_news/)" % (receiver, addamt, receiver))
+                    self.utils.send_message(receiver,'Welcome to mambocoin',"%s gave you some mambocoin, we have added your new found riches to an account in your name on garlictipsbot. You can get the balance by messaging this bot with the word balance on it's own (in a new message, not as a reply to this one!) \n\nYou can also send tips to others or withdraw to your own mambocoin wallet. If there are any issues please PM /u/ktechmidas" % mention.author)
                 except:
                     self.logger.logline("Reddit doesn't seem to be responding right now...died on comment & sendmsg for new user.")
 
@@ -189,20 +189,20 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
                 self.modify_user_balance("+",receiver,addamt)
                 mstr = str(receiver)+" "+str(addamt) #Probably no need for this, holdover from recode.
                 try:
-                    message.reply("Yay! You gave /u/%s garlicoin, hopefully they can now create some tasty garlic bread." % (mstr))
-                    self.utils.send_message(receiver,'Welcome to Garlicoin',"%s gave you some Garlicoin via PM" % (message.author))
+                    message.reply("Yay! You gave /u/%s mambocoin, hopefully they can now create some tasty garlic bread." % (mstr))
+                    self.utils.send_message(receiver,'Welcome to mambocoin',"%s gave you some mambocoin via PM" % (message.author))
                 except:
                     self.logger.logline("Reddit doesn't seem to be responding right now...died on comment for existing user.")
             else:
                 self.create_account(receiver)
                 self.modify_user_balance("+",receiver,addamt)
                 try:
-                    message.reply("Yay! You gave /u/%s %s garlicoin, hopefully they can now create some tasty garlic bread. If %s doesn't know what it is, they should read [this thread](https://www.reddit.com/r/garlicoin/comments/7smsu0/introducing_ugarlictipsbot/)" % (receiver, addamt, receiver))
-                    self.utils.send_message(receiver,'Welcome to Garlicoin',"%s gave you some Garlicoin, we have added your new found riches to an account in your name on garlictipsbot. You can get the balance by messaging this bot with the word balance on it's own (in a new message, not as a reply to this one!) \n\nYou can also send tips to others or withdraw to your own garlicoin wallet, send the bot the word 'help' to see how to do this. If there are any issues please PM /u/ktechmidas" % message.author)
+                    message.reply("Yay! You gave /u/%s %s mambocoin, hopefully they can now create some tasty garlic bread. If %s doesn't know what it is, they should read [this thread](https://www.reddit.com/r/mambocoin/comments/7smsu0/introducing_ugarlictipsbot/)" % (receiver, addamt, receiver))
+                    self.utils.send_message(receiver,'Welcome to mambocoin',"%s gave you some mambocoin, we have added your new found riches to an account in your name on garlictipsbot. You can get the balance by messaging this bot with the word balance on it's own (in a new message, not as a reply to this one!) \n\nYou can also send tips to others or withdraw to your own mambocoin wallet, send the bot the word 'help' to see how to do this. If there are any issues please PM /u/ktechmidas" % message.author)
                 except:
                     self.logger.logline("Reddit doesn't seem to be responding right now...died on comment & sendmsg for new user.")
 
-    def new_deposit(self,username,coin='garlicoin'): #If the user hasn't deposited with us before, he gets a flag created, else just do nothing because the flag is already there.
+    def new_deposit(self,username,coin='mambocoin'): #If the user hasn't deposited with us before, he gets a flag created, else just do nothing because the flag is already there.
         sql = "SELECT * FROM deposits WHERE username=%s AND coin=%s"
         self.cursor.execute(sql, (username,coin,))
         if not self.cursor.rowcount:
@@ -279,13 +279,13 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
             dash = self.get_dash_for_user(author) #Will combine get_amount_for_user and get_dash_for_user in a future release
             self.logger.logline("%s requested their balance. AMT: %s Dash: %s" % (author,balance,dash))
             if dash == 0:
-                message.reply("Your Garlicoin balance is %s" % balance)
+                message.reply("Your mambocoin balance is %s" % balance)
             else:
-                message.reply("Your Garlicoin balance is %s\n\n Your Dash balance is %s" % (balance,dash))
+                message.reply("Your mambocoin balance is %s\n\n Your Dash balance is %s" % (balance,dash))
         elif command == "deposit":
             self.new_deposit(author)
-            addy = self.get_new_address(author,"garlicoin")
-            message.reply("Hi! Our cooks have generated a deposit address just for you, it is: %s \n\n Once you have sent some garlicoin please be patient while it appears in your account.\n\n **NOTE:** You may have to wait 10-15 minutes after depositing due to the way I check deposits, this may be changing soon." % (addy))
+            addy = self.get_new_address(author,"mambocoin")
+            message.reply("Hi! Our cooks have generated a deposit address just for you, it is: %s \n\n Once you have sent some mambocoin please be patient while it appears in your account.\n\n **NOTE:** You may have to wait 10-15 minutes after depositing due to the way I check deposits, this may be changing soon." % (addy))
         elif command == "help":
             message.reply(self.help)
         elif command == "rates":
@@ -298,7 +298,7 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
                     self.create_account(author)
                 self.modify_user_balance("+",author,"0.2")
                 self.add_user_to_giveaway(author)
-                message.reply("You've successfully claimed your 0.2 free Garlicoin, please send me a new PM (not a reply) with help or balance to see your new balance.")
+                message.reply("You've successfully claimed your 0.2 free mambocoin, please send me a new PM (not a reply) with help or balance to see your new balance.")
                 
             elif chk == 2:
                 message.reply("Sorry, this giveaway expired!")
@@ -317,7 +317,7 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
         if msgsplit[0] == "deposit":
             coin = msgsplit[1].lower()
             if not self.check_supported_coin(coin):
-                message.reply("You tried to deposit an unsupported coin, right now we only support Garlicoin and Dash")
+                message.reply("You tried to deposit an unsupported coin, right now we only support mambocoin and Dash")
                 raise Exception
             self.new_deposit(author,coin)
             addy = self.get_new_address(author,coin)
@@ -337,13 +337,13 @@ If you need any further assistance please PM my creator, /u/ktechmidas"""
 
                 if address.startswith("G"): #Our favourite coin, right?
                     amtleft = self.get_amount_for_user(author)
-                    self.process_withdraw(author,address,amt,amtleft,"garlicoin",message)
+                    self.process_withdraw(author,address,amt,amtleft,"mambocoin",message)
                 elif address.startswith("X"): #Get dashing
                     amtleft = self.get_dash_for_user(author)
                     self.process_withdraw(author,address,amt,amtleft,"dash",message)
 
             except:
-                message.reply("It appears you tried to send a withdrawal request, but we couldn't figure out the format. Please resend it as 'withdraw address amount' - It's also possible you gave an invalid Garlicoin address, please check it.")
+                message.reply("It appears you tried to send a withdrawal request, but we couldn't figure out the format. Please resend it as 'withdraw address amount' - It's also possible you gave an invalid mambocoin address, please check it.")
                 traceback.print_exc()
         elif msgsplit[0] == "exchange":
             crypto_from = msgsplit[2].upper()
