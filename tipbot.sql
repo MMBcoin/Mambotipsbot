@@ -58,7 +58,7 @@ CREATE TABLE `deposits` (
   `username` varchar(40) DEFAULT NULL,
   `amount` decimal(8,6) DEFAULT NULL,
   `txs` int(11) DEFAULT NULL,
-  `coin` varchar(20) DEFAULT 'garlicoin',
+  `coin` varchar(20) DEFAULT 'MMB',
   PRIMARY KEY (`depid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=250 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -141,7 +141,7 @@ CREATE TABLE `withdraw` (
   `address` varchar(40) DEFAULT NULL,
   `amount` varchar(10) DEFAULT NULL,
   `confirmed` int(11) DEFAULT NULL,
-  `coin` varchar(20) DEFAULT 'garlicoin',
+  `coin` varchar(20) DEFAULT 'MMB',
   PRIMARY KEY (`wid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=430 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
